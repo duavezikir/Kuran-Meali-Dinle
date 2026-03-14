@@ -3,115 +3,137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kuran-ı Kerim Türkçe Meali</title>
+<title>Kuran Meali · Nöron Neon</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
   body {
-    background: #0a0a0f;
-    font-family: 'Space Grotesk', sans-serif;
+    background: #02040a;
+    font-family: 'Inter', sans-serif;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 12px;
     position: relative;
     overflow: hidden;
   }
 
+  /* Gelişmiş Neon Arkaplan (hareketli yıldızımsı noktalar) */
   body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.08) 0%, transparent 25%),
+      radial-gradient(circle at 80% 70%, rgba(0, 200, 255, 0.08) 0%, transparent 30%),
+      radial-gradient(circle at 40% 80%, rgba(100, 0, 255, 0.05) 0%, transparent 35%),
+      repeating-linear-gradient(45deg, rgba(0, 255, 255, 0.02) 0px, rgba(0, 255, 255, 0.02) 2px, transparent 2px, transparent 12px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ekstra neon parıltılar (statik) */
+  body::after {
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    background: 
-      radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.05) 0%, transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.05) 0%, transparent 40%),
-      linear-gradient(135deg, transparent 0%, rgba(0, 255, 255, 0.02) 100%);
+    background: radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.02) 0%, transparent 70%);
     pointer-events: none;
+    z-index: 0;
   }
 
   .container {
-    max-width: 520px;
+    max-width: 420px;
     width: 100%;
-    background: rgba(20, 20, 30, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 32px;
-    border: 1px solid rgba(0, 255, 255, 0.2);
+    background: rgba(5, 10, 18, 0.7);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-radius: 28px;
+    border: 1px solid rgba(0, 255, 255, 0.35);         /* daha belirgin neon çizgi */
     box-shadow: 
-      0 20px 40px rgba(0, 0, 0, 0.6),
-      0 0 0 1px rgba(0, 255, 255, 0.1),
-      0 0 20px rgba(0, 255, 255, 0.2);
-    padding: 24px;
+      0 20px 40px rgba(0, 0, 0, 0.9),
+      0 0 0 1px rgba(0, 255, 255, 0.2) inset,
+      0 0 40px rgba(0, 180, 255, 0.4),                /* dışarı taşan neon */
+      0 0 15px rgba(0, 255, 255, 0.3);                 /* ekstra glow */
+    padding: 10px; /* 18px'den 10px'e düşürüldü - container genel yukarı taşındı */
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    transition: box-shadow 0.2s ease;
+  }
+
+  /* container hover da neon şiddetlensin */
+  .container:hover {
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.9),
+      0 0 0 1px rgba(0, 255, 255, 0.3) inset,
+      0 0 50px rgba(0, 200, 255, 0.6),
+      0 0 20px #0ff;
   }
 
   .title-section {
     text-align: center;
-    margin-bottom: 24px;
-    position: relative;
-  }
-
-  .title-section::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 20%;
-    right: 20%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.5), transparent);
+    margin-bottom: 18px;
+    filter: drop-shadow(0 0 8px cyan);
   }
 
   .bismillah {
-    font-family: 'Amiri', serif;
-    font-size: 1.6rem;
+    font-family: 'Inter', serif;
+    font-size: 1.7rem; /* 2rem'den 1.7rem'e düşürüldü - 3 punto küçültüldü */
     color: #fff;
     text-shadow: 
-      0 0 10px rgba(0, 255, 255, 0.5),
-      0 0 20px rgba(0, 255, 255, 0.3);
-    margin-bottom: 4px;
+      0 0 15px cyan,
+      0 0 30px #0ff,
+      0 0 60px #00aaff;
+    margin-bottom: 8px;
     letter-spacing: 0.02em;
+    font-weight: 400;
+    animation: neonPulse 3s infinite alternate;
   }
 
   h1 {
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.7);
-    letter-spacing: 0.15em;
+    color: rgba(180, 255, 255, 0.9);
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
   }
 
+  /* player kısmı neon border belirgin */
   .player-section {
-    background: rgba(10, 10, 18, 0.8);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(0, 255, 255, 0.25);
-    border-radius: 28px;
-    padding: 14px 18px;
-    margin-bottom: 16px;
+    background: rgba(0, 5, 12, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 230, 255, 0.5);
+    border-radius: 24px;
+    padding: 18px 20px; /* padding artırıldı */
+    margin-bottom: 14px;
     box-shadow: 
-      0 8px 20px rgba(0, 0, 0, 0.5),
-      0 0 0 1px rgba(0, 255, 255, 0.2),
-      inset 0 0 20px rgba(0, 255, 255, 0.1);
+      0 8px 16px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(0, 255, 255, 0.2) inset,
+      0 0 20px rgba(0, 200, 255, 0.3);
   }
 
   .now-playing-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 18px;
   }
 
   .track-info {
     flex: 1;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
   }
 
   .playing-dot {
@@ -122,7 +144,7 @@
     display: none;
     box-shadow: 0 0 12px #0ff, 0 0 20px #0ff;
     flex-shrink: 0;
-    animation: pulse 1.2s ease-in-out infinite;
+    animation: pulse 1s ease-in-out infinite;
   }
 
   .playing-dot.visible {
@@ -130,28 +152,29 @@
   }
 
   .now-playing-title {
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     color: #fff;
     font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+    text-shadow: 0 0 10px cyan, 0 0 20px #0ff;
     letter-spacing: 0.02em;
   }
 
   .now-playing-meta {
-    font-size: 0.6rem;
-    color: rgba(0, 255, 255, 0.6);
+    font-size: 0.7rem;
+    color: #8cf;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     flex-shrink: 0;
+    text-shadow: 0 0 5px cyan;
   }
 
   .player-controls-row {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 18px;
   }
 
   .progress-area {
@@ -160,21 +183,24 @@
 
   .progress-container {
     position: relative;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
+    height: 6px;
+    background: rgba(20, 40, 60, 0.6);
+    border-radius: 3px;
     cursor: pointer;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
     overflow: hidden;
+    box-shadow: 0 0 8px #0ff;
   }
 
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #0ff, #f0f);
+    background: linear-gradient(90deg, #0ff, #a0f, #0ff);
     width: 0%;
     transition: width 0.1s linear;
-    box-shadow: 0 0 10px #0ff;
+    box-shadow: 0 0 15px #0ff, 0 0 30px #0ff;
     position: relative;
+    background-size: 200% 100%;
+    animation: neonWave 3s linear infinite;
   }
 
   .progress-fill::after {
@@ -183,105 +209,98 @@
     right: 0;
     top: 0;
     bottom: 0;
-    width: 3px;
+    width: 4px;
     background: #fff;
-    box-shadow: 0 0 10px #fff;
+    box-shadow: 0 0 15px #fff, 0 0 30px #0ff;
+  }
+
+  @keyframes neonWave {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
   }
 
   .time-labels {
     display: flex;
     justify-content: space-between;
-    font-size: 0.55rem;
-    color: rgba(0, 255, 255, 0.5);
+    font-size: 0.7rem;
+    color: #8cf;
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.05em;
+    text-shadow: 0 0 5px #0ff;
+    font-weight: 500;
   }
 
   .control-buttons {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
   }
 
   .ctrl-btn {
-    background: rgba(0, 255, 255, 0.05);
-    border: 1px solid rgba(0, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.7);
-    width: 28px;
-    height: 28px;
+    background: transparent;
+    border: none;
+    color: #8cf;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
-    font-size: 0.7rem;
-    backdrop-filter: blur(4px);
+    font-size: 1.1rem;
+    text-shadow: 0 0 5px cyan;
   }
 
   .ctrl-btn:hover {
-    background: rgba(0, 255, 255, 0.2);
-    border-color: #0ff;
     color: #fff;
-    box-shadow: 0 0 15px #0ff;
-    transform: scale(1.05);
+    text-shadow: 0 0 20px cyan, 0 0 30px #0ff;
+    transform: scale(1.15);
   }
 
   .play-btn {
-    width: 34px;
-    height: 34px;
-    background: rgba(0, 255, 255, 0.15);
-    border-color: #0ff;
+    width: 42px;
+    height: 42px;
     color: #fff;
-    font-size: 0.8rem;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    font-size: 1.2rem;
+    background: rgba(0, 200, 255, 0.15);
+    border: 1px solid #0ff;
+    box-shadow: 0 0 20px #0ff;
   }
 
   .play-btn:hover {
     background: rgba(0, 255, 255, 0.3);
-    box-shadow: 0 0 25px #0ff;
+    border-color: #fff;
+    box-shadow: 0 0 30px cyan, 0 0 60px #0ff;
   }
 
-  .shortcut-hint {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 8px;
-    font-size: 0.55rem;
-    color: rgba(0, 255, 255, 0.4);
-    letter-spacing: 0.05em;
-  }
-
-  .shortcut-hint span {
-    background: rgba(0, 255, 255, 0.1);
-    padding: 2px 8px;
-    border-radius: 12px;
-    border: 1px solid rgba(0, 255, 255, 0.2);
-  }
-
+  /* sure listesi neon border */
   .sureler-section {
-    background: rgba(10, 10, 18, 0.7);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(0, 255, 255, 0.2);
-    border-radius: 24px;
-    padding: 12px;
+    background: rgba(0, 8, 16, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 255, 255, 0.35);
+    border-radius: 22px;
+    padding: 14px;
     box-shadow: 
-      0 8px 20px rgba(0, 0, 0, 0.4),
-      inset 0 0 30px rgba(0, 255, 255, 0.05);
+      0 8px 16px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(0, 255, 255, 0.1) inset,
+      0 0 30px rgba(0, 200, 255, 0.2);
+    margin-top: 0; /* Varsayılan margin varsa sıfırlandı */
   }
 
   .sureler-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 8px 8px 8px;
-    color: rgba(0, 255, 255, 0.6);
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
+    padding: 0 10px 10px 10px;
+    color: #9cf;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    border-bottom: 1px solid rgba(0, 255, 255, 0.15);
-    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px cyan;
   }
 
   .track-list {
@@ -291,46 +310,53 @@
   }
 
   .track-list::-webkit-scrollbar {
-    width: 2px;
+    width: 3px;
   }
   .track-list::-webkit-scrollbar-track {
-    background: rgba(0, 255, 255, 0.05);
+    background: rgba(0, 200, 255, 0.1);
+    box-shadow: 0 0 5px #0ff inset;
   }
   .track-list::-webkit-scrollbar-thumb {
-    background: rgba(0, 255, 255, 0.3);
-    border-radius: 2px;
+    background: #0ff;
+    border-radius: 3px;
+    box-shadow: 0 0 10px #0ff;
   }
 
   .track-item {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 10px;
+    gap: 10px;
+    padding: 10px 12px;
     cursor: pointer;
-    border-radius: 16px;
+    border-radius: 14px;
     transition: all 0.2s ease;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    color: rgba(220, 255, 255, 0.8);
     border: 1px solid transparent;
+    margin-bottom: 2px;
   }
 
   .track-item:hover {
-    background: rgba(0, 255, 255, 0.05);
-    border-color: rgba(0, 255, 255, 0.2);
+    background: rgba(0, 255, 255, 0.1);
+    border-color: #0ff;
+    box-shadow: 0 0 15px #0ff;
+    color: #fff;
+    text-shadow: 0 0 8px #0ff;
   }
 
   .track-item.active {
-    background: rgba(0, 255, 255, 0.1);
+    /* background: rgba(0, 230, 255, 0.15);  -> Arkaplan rengi tamamen kaldırıldı */
     border-color: #0ff;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 20px cyan;
   }
 
   .track-num {
-    width: 22px;
-    color: rgba(0, 255, 255, 0.4);
-    font-size: 0.7rem;
+    width: 26px;
+    color: #0ff;
+    font-size: 0.75rem;
     font-variant-numeric: tabular-nums;
     text-align: center;
+    text-shadow: 0 0 5px #0ff;
   }
 
   .track-item.active .track-num {
@@ -338,479 +364,480 @@
   }
 
   .track-icon {
-    width: 22px;
+    width: 26px;
     color: #0ff;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     display: none;
-    text-shadow: 0 0 8px #0ff;
+    text-shadow: 0 0 12px #0ff, 0 0 20px #0ff;
   }
 
   .track-item.active .track-icon {
     display: block;
+    animation: iconPulse 1s infinite alternate;
+  }
+
+  @keyframes iconPulse {
+    from { opacity: 0.8; text-shadow: 0 0 5px cyan; }
+    to { opacity: 1; text-shadow: 0 0 20px cyan, 0 0 40px #0ff; }
   }
 
   .track-name {
     flex: 1;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.8);
     font-weight: 400;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 
   .track-item.active .track-name {
     color: #fff;
-    text-shadow: 0 0 8px #0ff;
-  }
-
-  .track-plays {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    font-size: 0.8rem;
-    color: rgba(0, 255, 255, 0.8);
-    min-width: 36px;
-    justify-content: flex-end;
-    text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
-  }
-
-  .repeat-icon {
-    font-size: 0.75rem;
-    color: rgba(0, 255, 255, 0.6);
-  }
-
-  .play-count {
-    font-weight: 500;
-  }
-
-  .empty-state {
-    text-align: center;
-    padding: 40px 20px;
-    color: rgba(255, 255, 255, 0.5);
-    background: rgba(10, 10, 18, 0.7);
-    backdrop-filter: blur(8px);
-    border-radius: 24px;
-    border: 1px solid rgba(0, 255, 255, 0.2);
-    display: none;
-  }
-
-  .empty-state.visible {
-    display: block;
-  }
-
-  .empty-state-icon {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    opacity: 0.3;
-    filter: drop-shadow(0 0 10px #0ff);
+    text-shadow: 0 0 12px cyan, 0 0 25px #0ff;
   }
 
   @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.3; transform: scale(0.8); }
+    0%, 100% { opacity: 1; box-shadow: 0 0 10px #0ff; }
+    50% { opacity: 0.3; box-shadow: 0 0 20px #0ff; }
   }
 
-  .hidden {
-    display: none;
+  @keyframes neonPulse {
+    0% { text-shadow: 0 0 5px cyan, 0 0 15px #0ff; }
+    100% { text-shadow: 0 0 20px cyan, 0 0 40px #0ff, 0 0 80px #00aaff; }
+  }
+
+  .glow-text {
+    color: #bdf;
+    font-size: 0.9rem; /* 0.7rem'den 0.9rem'e çıkarıldı - 2 punto büyütüldü */
+    text-align: center;
+    margin-top: 12px;
+    letter-spacing: 0.15em;
+    opacity: 0.9;
+    text-shadow: 0 0 10px cyan, 0 0 20px #0ff;
+  }
+
+  /* Ekstra neon çizgi animasyonu */
+  .container::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: linear-gradient(45deg, #0ff, #90f, #0ff, #90f);
+    background-size: 300% 300%;
+    border-radius: 30px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s;
+    filter: blur(6px);
+  }
+
+  .container:hover::before {
+    opacity: 0.3;
+    animation: borderGlow 6s ease infinite;
+  }
+
+  @keyframes borderGlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 </style>
 </head>
 <body>
 
 <div class="container">
+  <!-- BAŞLIK - DÜZENLENDİ: sadece tam besmele, "KURAN MEALİ · AHMET DENİZ" kaldırıldı -->
   <div class="title-section">
-    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
-    <h1>Kuran-ı Kerim Türkçe Meali</h1>
+    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <!-- h1 tamamen kaldırıldı -->
   </div>
 
-  <div id="mainContent">
-    <div class="player-section">
-      <div class="now-playing-row">
-        <div class="track-info">
-          <span class="playing-dot" id="playingDot"></span>
-          <div class="now-playing-title" id="nowTitle">—</div>
-        </div>
-        <div class="now-playing-meta" id="nowMeta"></div>
+  <!-- OYNATICI -->
+  <div class="player-section">
+    <div class="now-playing-row">
+      <div class="track-info">
+        <span class="playing-dot" id="playingDot"></span>
+        <div class="now-playing-title" id="nowTitle">—</div>
       </div>
+      <div class="now-playing-meta" id="nowMeta"></div>
+    </div>
 
-      <div class="player-controls-row">
-        <div class="progress-area">
-          <div class="progress-container" id="progressContainer">
-            <div class="progress-fill" id="progressFill"></div>
-          </div>
-          <div class="time-labels">
-            <span id="timeCurrent">0:00</span>
-            <span id="timeTotal">0:00</span>
-          </div>
+    <div class="player-controls-row">
+      <div class="progress-area">
+        <div class="progress-container" id="progressContainer">
+          <div class="progress-fill" id="progressFill"></div>
         </div>
-        
-        <div class="control-buttons">
-          <button class="ctrl-btn" onclick="prevTrack()" title="Önceki sure (←)">⏮</button>
-          <button class="ctrl-btn play-btn" id="playBtn" onclick="togglePlay()">▶</button>
-          <button class="ctrl-btn" onclick="nextTrack()" title="Sonraki sure (→)">⏭</button>
+        <div class="time-labels">
+          <span id="timeCurrent">0:00</span>
+          <span id="timeTotal">0:00</span>
         </div>
       </div>
       
-      <div class="shortcut-hint">
-        <span>← 5sn geri</span>
-        <span>→ 5sn ileri</span>
+      <div class="control-buttons">
+        <button class="ctrl-btn" onclick="prevTrack()" title="Önceki">⏮</button>
+        <button class="ctrl-btn play-btn" id="playBtn" onclick="togglePlay()">▶</button>
+        <button class="ctrl-btn" onclick="nextTrack()" title="Sonraki">⏭</button>
       </div>
-    </div>
-
-    <div class="sureler-section">
-      <div class="sureler-header">
-        <span>⟡ SURELER ⟡</span>
-        <span id="totalInfo"></span>
-      </div>
-      <div class="track-list" id="trackList"></div>
     </div>
   </div>
 
-  <div class="empty-state" id="emptyState">
-    <div class="empty-state-icon">⟡</div>
-    <p>Sureler bulunamadı. Lütfen /sureler/ klasörüne MP3 dosyaları yükleyin.</p>
+  <!-- SURE LİSTESİ -->
+  <div class="sureler-section">
+    <div class="sureler-header">
+      <span>⟡ 114 SURE ⟡</span>
+      <span id="totalInfo">114</span>
+    </div>
+    <div class="track-list" id="trackList"></div>
   </div>
+  
+  <!-- ALT YAZI DEĞİŞTİ: NÖTRON NEON yerine KURAN-I KERİM TÜRKÇE MEALİ -->
+  <div class="glow-text">◈ KURAN-I KERİM TÜRKÇE MEALİ ◈</div>
 </div>
 
-<audio id="audio"></audio>
+<audio id="audio" preload="none"></audio>
 
 <script>
-const audio = document.getElementById('audio');
-let tracks = [];
-let currentIdx = -1;
-let stats = {};
-let isPlaying = false;
-let trackInterval = null;
-let currentTrackPlayed = false;
-let isManualNavigation = false;
+(function() {
+  // ===========================================
+  // TÜM SURELERİN MP3 LİNKLERİ (Internet Archive)
+  // ===========================================
+  const SURE_LISTESI = [
+    { no: "001", name: "Fatiha", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/001-Fatiha.mp3" },
+    { no: "002", name: "Bakara", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/002-Bakara.mp3" },
+    { no: "003", name: "Ali-İmran", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/003-Ali-imran.mp3" },
+    { no: "004", name: "Nisa", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/004-Nisa.mp3" },
+    { no: "005", name: "Maide", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/005-Maide.mp3" },
+    { no: "006", name: "Enam", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/006-En-am.mp3" },
+    { no: "007", name: "Araf", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/007-Araf.mp3" },
+    { no: "008", name: "Enfal", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/008-Enfal.mp3" },
+    { no: "009", name: "Tevbe", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/009-Tevbe.mp3" },
+    { no: "010", name: "Yunus", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/010-Yunus.mp3" },
+    { no: "011", name: "Hud", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/011-Hud.mp3" },
+    { no: "012", name: "Yusuf", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/012-Yusuf.mp3" },
+    { no: "013", name: "Rad", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/013-Rad.mp3" },
+    { no: "014", name: "İbrahim", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/014-ibrahim.mp3" },
+    { no: "015", name: "Hicr", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/015-Hicr.mp3" },
+    { no: "016", name: "Nahl", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/016-Nahl.mp3" },
+    { no: "017", name: "İsra", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/017-isra.mp3" },
+    { no: "018", name: "Kehf", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/018-Kehf.mp3" },
+    { no: "019", name: "Meryem", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/019-Meryem.mp3" },
+    { no: "020", name: "Taha", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/020-Taha.mp3" },
+    { no: "021", name: "Enbiya", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/021-Enbiya.mp3" },
+    { no: "022", name: "Hac", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/022-Hac.mp3" },
+    { no: "023", name: "Müminun", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/023-Muminun.mp3" },
+    { no: "024", name: "Nur", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/024-Nur.mp3" },
+    { no: "025", name: "Furkan", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/025-Furkan.mp3" },
+    { no: "026", name: "Şuara", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/026-Suara.mp3" },
+    { no: "027", name: "Neml", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/027-Neml.mp3" },
+    { no: "028", name: "Kasas", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/028-Kasas.mp3" },
+    { no: "029", name: "Ankebut", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/029-Ankebut.mp3" },
+    { no: "030", name: "Rum", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/030-Rum.mp3" },
+    { no: "031", name: "Lokman", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/031-Lokman.mp3" },
+    { no: "032", name: "Secde", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/032-Secde.mp3" },
+    { no: "033", name: "Ahzab", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/033-Ahzab.mp3" },
+    { no: "034", name: "Sebe", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/034-Sebe.mp3" },
+    { no: "035", name: "Fatır", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/035-Fatir.mp3" },
+    { no: "036", name: "Yasin", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/036-Yasin.mp3" },
+    { no: "037", name: "Saffat", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/037-Saffat.mp3" },
+    { no: "038", name: "Sad", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/038-Sad.mp3" },
+    { no: "039", name: "Zümer", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/039-Zumer.mp3" },
+    { no: "040", name: "Mümin", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/040-Mumin.mp3" },
+    { no: "041", name: "Fussilet", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/041-Fussilet.mp3" },
+    { no: "042", name: "Şura", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/042-Sura.mp3" },
+    { no: "043", name: "Zuhruf", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/043-Zuhruf.mp3" },
+    { no: "044", name: "Duhan", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/044-Duhan.mp3" },
+    { no: "045", name: "Casiye", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/045-Casiye.mp3" },
+    { no: "046", name: "Ahkaf", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/046-Ahkaf.mp3" },
+    { no: "047", name: "Muhammed", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/047-Muhammed.mp3" },
+    { no: "048", name: "Fetih", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/048-Fetih.mp3" },
+    { no: "049", name: "Hucurat", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/049-Hucurat.mp3" },
+    { no: "050", name: "Kaf", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/050-Kaf.mp3" },
+    { no: "051", name: "Zariyat", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/051-Zariyat.mp3" },
+    { no: "052", name: "Tur", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/052-Tur.mp3" },
+    { no: "053", name: "Necm", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/053-Necm.mp3" },
+    { no: "054", name: "Kamer", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/054-Kamer.mp3" },
+    { no: "055", name: "Rahman", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/055-Rahman.mp3" },
+    { no: "056", name: "Vakıa", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/056-Vakia.mp3" },
+    { no: "057", name: "Hadid", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/057-Hadid.mp3" },
+    { no: "058", name: "Mücadele", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/058-Mucadele.mp3" },
+    { no: "059", name: "Haşr", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/059-Hasr.mp3" },
+    { no: "060", name: "Mümtehine", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/060-Mumtehine.mp3" },
+    { no: "061", name: "Saf", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/061-Saf.mp3" },
+    { no: "062", name: "Cuma", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/062-Cuma.mp3" },
+    { no: "063", name: "Münafikun", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/063-Munafikun.mp3" },
+    { no: "064", name: "Tegâbün", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/064-Tegabun.mp3" },
+    { no: "065", name: "Talak", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/065-Talak.mp3" },
+    { no: "066", name: "Tahrim", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/066-Tahrim.mp3" },
+    { no: "067", name: "Mülk", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/067-Mulk.mp3" },
+    { no: "068", name: "Kalem", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/068-Kalem.mp3" },
+    { no: "069", name: "Hakka", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/069-Hakka.mp3" },
+    { no: "070", name: "Mearic", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/070-Mearic.mp3" },
+    { no: "071", name: "Nuh", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/071-Nuh.mp3" },
+    { no: "072", name: "Cin", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/072-Cin.mp3" },
+    { no: "073", name: "Müzzemmil", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/073-Muzzemmil.mp3" },
+    { no: "074", name: "Müddessir", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/074-Muddessir.mp3" },
+    { no: "075", name: "Kıyamet", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/075-Kiyamet.mp3" },
+    { no: "076", name: "insan", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/076-insan.mp3" },
+    { no: "077", name: "Mürselat", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/077-Murselat.mp3" },
+    { no: "078", name: "Nebe", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/078-Nebe.mp3" },
+    { no: "079", name: "Naziat", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/079-Naziat.mp3" },
+    { no: "080", name: "Abese", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/080-Abese.mp3" },
+    { no: "081", name: "Tekvir", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/081-Tekvir.mp3" },
+    { no: "082", name: "İnfitar", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/082-infitar.mp3" },
+    { no: "083", name: "Mutaffifin", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/083-Mutaffifin.mp3" },
+    { no: "084", name: "İnşikak", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/084-insikak.mp3" },
+    { no: "085", name: "Buruc", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/085-Buruc.mp3" },
+    { no: "086", name: "Tarık", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/086-Tarik.mp3" },
+    { no: "087", name: "A'lâ", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/087-Ala.mp3" },
+    { no: "088", name: "Gasiye", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/088-Gasiye.mp3" },
+    { no: "089", name: "Fecr", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/089-Fecr.mp3" },
+    { no: "090", name: "Beled", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/090-Beled.mp3" },
+    { no: "091", name: "Şems", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/091-Sems.mp3" },
+    { no: "092", name: "Leyl", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/092-Leyl.mp3" },
+    { no: "093", name: "Duha", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/093-Duha.mp3" },
+    { no: "094", name: "İnşirah", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/094-insirah.mp3" },
+    { no: "095", name: "Tin", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/095-Tin.mp3" },
+    { no: "096", name: "Alak", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/096-Alak.mp3" },
+    { no: "097", name: "Kadr", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/097-Kadr.mp3" },
+    { no: "098", name: "Beyyine", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/098-Beyyine.mp3" },
+    { no: "099", name: "Zilzal", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/099-Zilzal.mp3" },
+    { no: "100", name: "Adiyat", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/100-Adiyat.mp3" },
+    { no: "101", name: "Karia", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/101-Karia.mp3" },
+    { no: "102", name: "Tekasür", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/102-Tekasur.mp3" },
+    { no: "103", name: "Asr", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/103-Asr.mp3" },
+    { no: "104", name: "Hümeze", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/104-Humeze.mp3" },
+    { no: "105", name: "Fil", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/105-Fil.mp3" },
+    { no: "106", name: "Kureyş", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/106-Kureys.mp3" },
+    { no: "107", name: "Maun", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/107-Maun.mp3" },
+    { no: "108", name: "Kevser", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/108-Kevser.mp3" },
+    { no: "109", name: "Kafirun", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/109-Kafirun.mp3" },
+    { no: "110", name: "Nasr", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/110-Nasr.mp3" },
+    { no: "111", name: "Tebbet", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/111-Tebbet.mp3" },
+    { no: "112", name: "İhlas", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/112-ihlas.mp3" },
+    { no: "113", name: "Felak", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/113-Felak.mp3" },
+    { no: "114", name: "Nas", url: "https://archive.org/download/Ahmet_Deniz_Meal_Kuran/114-Nas.mp3" }
+  ];
 
-const STORAGE_KEY = 'sureler_stats_v13';
-const SESSION_KEY = 'sureler_session_v9';
+  // ===========================================
+  // OYNATICI DEĞİŞKENLERİ
+  // ===========================================
+  const audio = document.getElementById('audio');
+  let tracks = SURE_LISTESI;
+  let currentIdx = -1;
+  let isPlaying = false;
+  let trackInterval = null;
 
-function seekForward() {
-  if (currentIdx < 0 || !audio.duration) return;
-  audio.currentTime = Math.min(audio.currentTime + 5, audio.duration);
-  saveSession();
-}
+  const SESSION_KEY = 'sureler_session_v12_neon';
 
-function seekBackward() {
-  if (currentIdx < 0 || !audio.duration) return;
-  audio.currentTime = Math.max(audio.currentTime - 5, 0);
-  saveSession();
-}
+  // ===========================================
+  // YARDIMCI FONKSİYONLAR
+  // ===========================================
+  function saveSession() {
+    if (!tracks.length || currentIdx < 0) return;
+    
+    const session = {
+      currentIdx: currentIdx,
+      currentTime: audio.currentTime,
+      isPlaying: isPlaying
+    };
+    try {
+      localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    } catch (e) {}
+  }
 
-document.addEventListener('keydown', function(e) {
-  if (currentIdx < 0) return;
-  const activeElement = document.activeElement;
-  const isInputActive = activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'BUTTON');
-  if (!isInputActive) {
-    if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      seekBackward();
-    } else if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      seekForward();
+  function loadSession() {
+    try {
+      const session = JSON.parse(localStorage.getItem(SESSION_KEY));
+      return session;
+    } catch {
+      return null;
     }
   }
-});
 
-function loadStats() {
-  try { stats = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { stats = {}; }
-}
-function saveStats() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(stats)); } catch {}
-}
-function ensureStat(name) {
-  if (!stats[name]) stats[name] = { plays: 0, seconds: 0 };
-}
-
-function saveSession() {
-  if (!tracks.length || currentIdx < 0) return;
-  const session = {
-    currentIdx: currentIdx,
-    currentTime: audio.currentTime,
-    isPlaying: isPlaying,
-    currentTrackPlayed: currentTrackPlayed,
-    tracks: tracks.map(t => t.name)
-  };
-  try {
-    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-  } catch (e) {}
-}
-
-function loadSession() {
-  try {
-    return JSON.parse(localStorage.getItem(SESSION_KEY));
-  } catch {
-    return null;
+  function formatSec(s) {
+    s = Math.floor(s);
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return m + ':' + String(sec).padStart(2,'0');
   }
-}
 
-function incrementPlayCount(trackName) {
-  if (!trackName) return;
-  ensureStat(trackName);
-  stats[trackName].plays++;
-  saveStats();
-  renderList();
-}
+  // ===========================================
+  // LİSTELEME VE OYNATMA
+  // ===========================================
+  function renderList() {
+    const list = document.getElementById('trackList');
+    list.innerHTML = '';
+    document.getElementById('totalInfo').textContent = tracks.length;
 
-function cleanName(fn) {
-  return fn.replace(/\.(mp3|m4a|ogg|wav|flac|aac)$/i, '').replace(/[-_]/g, ' ').trim();
-}
-
-async function loadTracksFromServer() {
-  try {
-    // Basit bir yöntem: Bilinen dosyaları manuel eklemek yerine,
-    // sunucuda bir dizin listeleme yoksa, public/sureler/ klasöründeki dosyaları
-    // listelemek için bir API olmalı. Şimdilik örnek dosya isimleri deneyelim.
-    // Gerçek projede, sunucu tarafında sureler dizinini okuyup JSON dönen bir endpoint olmalı.
-    // Bu örnekte, 114 sure olduğunu varsayıp 001.mp3'ten 114.mp3'e kadar deneyeceğiz.
-    
-    const sureAdlari = [
-      "Fatiha", "Bakara", "Al-i İmran", "Nisa", "Maide", "Enam", "Araf", "Enfal", "Tevbe", "Yunus",
-      "Hud", "Yusuf", "Rad", "İbrahim", "Hicr", "Nahl", "İsra", "Kehf", "Meryem", "Taha",
-      "Enbiya", "Hac", "Müminun", "Nur", "Furkan", "Şuara", "Neml", "Kasas", "Ankebut", "Rum",
-      "Lokman", "Secde", "Ahzab", "Sebe", "Fatır", "Yasin", "Saffat", "Sad", "Zümer", "Mümin",
-      "Fussilet", "Şura", "Zuhruf", "Duhan", "Casiye", "Ahkaf", "Muhammed", "Fetih", "Hucurat", "Kaf",
-      "Zariyat", "Tur", "Necm", "Kamer", "Rahman", "Vakıa", "Hadid", "Mücadele", "Haşr", "Mümtehine",
-      "Saff", "Cuma", "Münafikun", "Tegabün", "Talak", "Tahrim", "Mülk", "Kalem", "Hakka", "Mearic",
-      "Nuh", "Cin", "Müzzemmil", "Müddessir", "Kıyame", "İnsan", "Mürselat", "Nebe", "Naziat", "Abese",
-      "Tekvir", "İnfitar", "Mutaffifin", "İnşikak", "Büruc", "Tarık", "Ala", "Gaşiye", "Fecr", "Beled",
-      "Şems", "Leyl", "Duha", "İnşirah", "Tin", "Alak", "Kadir", "Beyyine", "Zilzal", "Adiyat",
-      "Karia", "Tekasür", "Asr", "Hümeze", "Fil", "Kureyş", "Maun", "Kevser", "Kafirun", "Nasr",
-      "Leheb", "İhlas", "Felak", "Nas"
-    ];
-
-    let loadedTracks = [];
-    for (let i = 0; i < sureAdlari.length; i++) {
-      const sureNo = (i + 1).toString().padStart(3, '0');
-      const fileName = `${sureNo}.mp3`;
-      const url = `/sureler/${fileName}`;
+    tracks.forEach((t, i) => {
+      const item = document.createElement('div');
+      item.className = 'track-item' + (i === currentIdx ? ' active' : '');
+      item.id = 'track-' + i;
+      item.onclick = () => { 
+        loadTrack(i); 
+        playAudio(); 
+      };
       
-      // Varlık kontrolü yapmak için HEAD isteği atalım
-      try {
-        const response = await fetch(url, { method: 'HEAD' });
-        if (response.ok) {
-          loadedTracks.push({
-            name: `${sureNo} - ${sureAdlari[i]}`,
-            url: url,
-            file: { name: fileName }
-          });
-        } else {
-          console.warn(`${fileName} bulunamadı, atlanıyor.`);
-        }
-      } catch {
-        console.warn(`${fileName} yüklenemedi.`);
-      }
-    }
+      item.innerHTML = `
+        <span class="track-num">${t.no}</span>
+        <span class="track-icon">▶</span>
+        <span class="track-name">${t.name}</span>
+      `;
+      list.appendChild(item);
+    });
+  }
 
-    if (loadedTracks.length === 0) {
-      document.getElementById('emptyState').classList.add('visible');
-      document.getElementById('mainContent').classList.add('hidden');
-      return;
-    }
-
-    tracks = loadedTracks;
-    document.getElementById('emptyState').classList.remove('visible');
-    document.getElementById('mainContent').classList.remove('hidden');
+  function loadTrack(idx, startTime = 0) {
+    stopTracking();
+    currentIdx = idx;
     
+    const t = tracks[idx];
+    audio.src = t.url;
+    audio.currentTime = startTime;
+    document.getElementById('nowTitle').textContent = t.name;
+    document.getElementById('nowMeta').textContent = t.no + ' / ' + tracks.length;
     renderList();
     
-    const session = loadSession();
-    if (session && session.tracks && session.tracks.length === tracks.length) {
-      let sameFiles = true;
-      for (let i = 0; i < tracks.length; i++) {
-        if (tracks[i].name !== session.tracks[i]) {
-          sameFiles = false;
-          break;
-        }
-      }
-      
-      if (sameFiles && session.currentIdx >= 0 && session.currentIdx < tracks.length) {
-        currentTrackPlayed = session.currentTrackPlayed || false;
-        loadTrack(session.currentIdx, session.currentTime || 0);
-        if (session.isPlaying) {
-          setTimeout(() => playAudio(), 100);
-        }
-        return;
-      }
-    }
+    const el = document.getElementById('track-' + idx);
+    if (el) el.scrollIntoView({block: 'nearest', behavior: 'smooth'});
     
-    currentTrackPlayed = false;
-    loadTrack(0);
-  } catch (error) {
-    console.error('Sureler yüklenirken hata:', error);
-    document.getElementById('emptyState').classList.add('visible');
-    document.getElementById('mainContent').classList.add('hidden');
+    saveSession();
   }
-}
 
-function renderList() {
-  const list = document.getElementById('trackList');
-  list.innerHTML = '';
-  document.getElementById('totalInfo').textContent = tracks.length;
+  function playAudio() {
+    audio.play().then(() => {
+      isPlaying = true;
+      document.getElementById('playBtn').innerHTML = '❚❚';
+      document.getElementById('playingDot').classList.add('visible');
+      startTracking();
+      saveSession();
+    }).catch((err) => {
+      console.warn('Oynatılamıyor:', err);
+      isPlaying = false;
+      document.getElementById('playBtn').innerHTML = '▶';
+    });
+  }
 
-  tracks.forEach((t, i) => {
-    ensureStat(t.name);
-    const s = stats[t.name];
-    const item = document.createElement('div');
-    item.className = 'track-item' + (i === currentIdx ? ' active' : '');
-    item.id = 'track-' + i;
-    item.onclick = () => { 
-      if (i !== currentIdx && currentIdx >= 0 && !currentTrackPlayed) {
-        incrementPlayCount(tracks[currentIdx].name);
-      }
-      loadTrack(i); 
+  function pauseAudio() {
+    audio.pause();
+    isPlaying = false;
+    document.getElementById('playBtn').innerHTML = '▶';
+    document.getElementById('playingDot').classList.remove('visible');
+    stopTracking();
+    saveSession();
+  }
+
+  function togglePlay() {
+    if (currentIdx < 0) return;
+    isPlaying ? pauseAudio() : playAudio();
+  }
+
+  function prevTrack() {
+    if (currentIdx > 0) { 
+      loadTrack(currentIdx - 1); 
       playAudio(); 
-    };
+    }
+  }
+
+  function nextTrack() {
+    if (currentIdx < tracks.length - 1) { 
+      loadTrack(currentIdx + 1); 
+      playAudio(); 
+    }
+  }
+
+  // ===========================================
+  // OYNATICI İZLEME
+  // ===========================================
+  function startTracking() {
+    stopTracking();
+    trackInterval = setInterval(() => {
+      if (!audio.paused) {
+        if (Math.floor(audio.currentTime) % 5 === 0) {
+          saveSession();
+        }
+      }
+    }, 1000);
+  }
+
+  function stopTracking() {
+    if (trackInterval) { clearInterval(trackInterval); trackInterval = null; }
+  }
+
+  // ===========================================
+  // OLAY DİNLEYİCİLER
+  // ===========================================
+  audio.addEventListener('timeupdate', () => {
+    if (!audio.duration) return;
     
-    const playDisplay = s.plays > 0 ? 
-      `<span class="repeat-icon">↻</span><span class="play-count">${s.plays}</span>` : 
-      '';
-    
-    item.innerHTML = `
-      <span class="track-num">${String(i + 1).padStart(2, '0')}</span>
-      <span class="track-icon">▶</span>
-      <span class="track-name">${t.name}</span>
-      <span class="track-plays">${playDisplay}</span>
-    `;
-    list.appendChild(item);
+    const pct = (audio.currentTime / audio.duration) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('timeCurrent').textContent = formatSec(Math.floor(audio.currentTime));
+    document.getElementById('timeTotal').textContent = formatSec(Math.floor(audio.duration));
   });
-}
 
-function loadTrack(idx, startTime = 0) {
-  if (!isManualNavigation && currentIdx >= 0 && currentIdx !== idx && !currentTrackPlayed) {
-    incrementPlayCount(tracks[currentIdx].name);
-  }
-  
-  isManualNavigation = false;
-  
-  stopTracking();
-  currentIdx = idx;
-  currentTrackPlayed = false;
-  
-  const t = tracks[idx];
-  audio.src = t.url;
-  audio.currentTime = startTime;
-  document.getElementById('nowTitle').textContent = t.name;
-  document.getElementById('nowMeta').textContent = (idx + 1) + ' / ' + tracks.length;
-  renderList();
-  
-  const el = document.getElementById('track-' + idx);
-  if (el) el.scrollIntoView({block: 'nearest', behavior: 'smooth'});
-  
-  saveSession();
-}
-
-function playAudio() {
-  audio.play().then(() => {
-    isPlaying = true;
-    document.getElementById('playBtn').innerHTML = '❚❚';
-    document.getElementById('playingDot').classList.add('visible');
-    startTracking();
+  document.getElementById('progressContainer').addEventListener('click', function(e) {
+    const rect = this.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    audio.currentTime = pct * audio.duration;
     saveSession();
-  }).catch(() => {});
-}
+  });
 
-function pauseAudio() {
-  audio.pause();
-  isPlaying = false;
-  document.getElementById('playBtn').innerHTML = '▶';
-  document.getElementById('playingDot').classList.remove('visible');
-  stopTracking();
-  saveSession();
-}
+  audio.addEventListener('ended', () => {
+    stopTracking();
+    isPlaying = false;
+    document.getElementById('playBtn').innerHTML = '▶';
+    document.getElementById('playingDot').classList.remove('visible');
+    
+    if (currentIdx < tracks.length - 1) {
+      loadTrack(currentIdx + 1);
+      playAudio();
+    } else {
+      saveSession();
+    }
+  });
 
-function togglePlay() {
-  if (currentIdx < 0) return;
-  isPlaying ? pauseAudio() : playAudio();
-}
+  window.addEventListener('beforeunload', () => {
+    saveSession();
+  });
 
-function prevTrack() {
-  if (currentIdx > 0) { 
-    isManualNavigation = true;
-    loadTrack(currentIdx - 1); 
-    playAudio(); 
-  }
-}
-
-function nextTrack() {
-  if (currentIdx < tracks.length - 1) { 
-    isManualNavigation = true;
-    loadTrack(currentIdx + 1); 
-    playAudio(); 
-  }
-}
-
-function startTracking() {
-  stopTracking();
-  trackInterval = setInterval(() => {
-    if (!audio.paused && tracks[currentIdx]) {
-      ensureStat(tracks[currentIdx].name);
-      stats[tracks[currentIdx].name].seconds++;
-      saveStats();
-      
-      if (Math.floor(audio.currentTime) % 5 === 0) {
-        saveSession();
+  // ===========================================
+  // KLAVYE KONTROLLERİ (sağ/sol ok tuşları ile ileri/geri sar)
+  // ===========================================
+  window.addEventListener('keydown', (e) => {
+    // Sadece sağ ve sol ok tuşları için
+    if (e.key === 'ArrowRight') {
+      e.preventDefault(); // Sayfanın kaymasını engelle
+      if (audio.duration) {
+        audio.currentTime = Math.min(audio.currentTime + 5, audio.duration);
+      }
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault(); // Sayfanın kaymasını engelle
+      if (audio.duration) {
+        audio.currentTime = Math.max(audio.currentTime - 5, 0);
       }
     }
-  }, 1000);
-}
+  });
 
-function stopTracking() {
-  if (trackInterval) { clearInterval(trackInterval); trackInterval = null; }
-}
-
-audio.addEventListener('timeupdate', () => {
-  if (!audio.duration) return;
-  
-  const pct = (audio.currentTime / audio.duration) * 100;
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('timeCurrent').textContent = formatSec(Math.floor(audio.currentTime));
-  document.getElementById('timeTotal').textContent = formatSec(Math.floor(audio.duration));
-});
-
-document.getElementById('progressContainer').addEventListener('click', function(e) {
-  const rect = this.getBoundingClientRect();
-  const pct = (e.clientX - rect.left) / rect.width;
-  audio.currentTime = pct * audio.duration;
-  saveSession();
-});
-
-audio.addEventListener('ended', () => {
-  stopTracking();
-  isPlaying = false;
-  document.getElementById('playBtn').innerHTML = '▶';
-  document.getElementById('playingDot').classList.remove('visible');
-  
-  if (!currentTrackPlayed) {
-    currentTrackPlayed = true;
-    incrementPlayCount(tracks[currentIdx].name);
-  }
-  
-  if (currentIdx < tracks.length - 1) {
-    isManualNavigation = false;
-    loadTrack(currentIdx + 1);
-    playAudio();
+  // ===========================================
+  // BAŞLANGIÇ
+  // ===========================================
+  // Oturumu yükle veya ilk sureye başla
+  const session = loadSession();
+  if (session && session.currentIdx !== undefined && session.currentIdx >= 0 && session.currentIdx < tracks.length) {
+    loadTrack(session.currentIdx, session.currentTime || 0);
+    if (session.isPlaying) {
+      setTimeout(() => playAudio(), 100);
+    }
   } else {
-    saveSession();
+    loadTrack(0);
   }
-});
 
-window.addEventListener('beforeunload', () => {
-  saveSession();
-});
+  // Global fonksiyonlar
+  window.prevTrack = prevTrack;
+  window.nextTrack = nextTrack;
+  window.togglePlay = togglePlay;
 
-function formatSec(s) {
-  s = Math.floor(s);
-  const m = Math.floor(s / 60);
-  const sec = s % 60;
-  return m + ':' + String(sec).padStart(2,'0');
-}
-
-loadStats();
-loadTracksFromServer();
+})();
 </script>
 </body>
 </html>
